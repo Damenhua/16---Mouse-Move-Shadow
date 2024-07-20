@@ -15,7 +15,7 @@
 
     const divHero = document.querySelector(".hero");
     const heroText = divHero.querySelector("h1");
-
+    const shadowValue = 300;
 
     function mousHandler(e) {
       let {offsetX, offsetY} = e;
@@ -24,7 +24,16 @@
         offsetX +=  e.target.offsetLeft;
         offsetY +=  e.target.offsetTop;
       }
-      console.log(offsetX/this.offsetWidth,offsetY/this.offsetHeight);
+      const shadowX = ((offsetX/this.offsetWidth)*shadowValue) * 2 - shadowValue;
+      const shadowY = ((offsetY/this.offsetHeight)*shadowValue) * 2 - shadowValue;
+
+      heroText.style.textShadow = `
+      ${shadowX}px ${shadowY}px 0 rgba(255,0,255,0.7),
+      ${shadowX * -1}px ${shadowY}px 0 rgba(0,255,255,0.7),
+      ${shadowY}px ${shadowX * -1}px 0 rgba(0,255,0,0.7),
+      ${shadowY * -1}px ${shadowX}px 0 rgba(0,0,255,0.7)      `;
+
+      console.log(shadowX);
     }
 
     divHero.addEventListener("mousemove",mousHandler)
